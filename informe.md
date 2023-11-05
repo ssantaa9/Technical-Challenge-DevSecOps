@@ -12,7 +12,7 @@ En el ejemplo, se observa que la característica 'Severity' corresponde con el p
 
 Para la característica 'Type' y dado que la NVD no proporciona información sobre el tipo de ataque, se crea una lista que incluye algunos de los tipos de ataque más comunes. Dicha lista se organiza de menor a mayor severidad según criterio personal. Como resultado, una función devuelve un elemento de la lista con una probabilidad de ocurrencia de mayor a menor para asignar a cada muestra.
 
-A continuación se observa un ejemplo del conjunto de datos generados.
+A continuación se observa un ejemplo del conjunto de datos generado.
 
 ![Alt text](img/image.png)
 ![Alt text](img/image-1.png)
@@ -25,11 +25,11 @@ Se importa la base de datos y se extrae las columnas con información relevante.
 
 El objetivo es calcular o predecir la prioridad de cada vulnerabilidad, sin embargo, en el ejemplo proporcionado, no se incluye este dato de prioridad. Por lo tanto, se asume que se debe utilizar un algoritmo de aprendizaje no supervisado. La cuestión con estos algoritmos es que se utilizan principalmente en problemas de clasificación, ya que los algoritmos de aprendizaje no supervisado para problemas de regresión todavía se encuentran en investigación de acuerdo al estado del arte.
 
-Se asume que el problema es de regresión porque se solicita la entrega del top 10 de vulnerabilidades con mayor prioridad. Para abordar un problema que requiere un modelo de aprendizaje supervisado de regresión, se opta por crear una función que calcule la prioridad en función de las características previamente procesadas. Esta función es la que el modelo deberá aprender. La función consiste en una suma ponderada de pesos por cada característica, donde un valor más pequeño indicará una menor prioridad y un valor más grande indicará una mayor prioridad.
+Se asume que el problema es de regresión porque se solicita la entrega del top 10 de vulnerabilidades con mayor prioridad. Para abordar un problema que requiere un modelo de aprendizaje supervisado de regresión, se opta por crear una función que calcule la prioridad en función de las características previamente procesadas. Esta función es la que el modelo debe aprender. La función consiste en una suma ponderada de pesos por cada característica, donde un valor más pequeño indica una menor prioridad y un valor más grande indica una mayor prioridad.
 
 ### Función de prioridad
 
-El peso de cada característica indica que tanta información va a aportar al valor de prioridad (valores de peso grandes aportan mayor información y valores de peso pequeños aportan menor información), por lo que los pesos se elegirán a criterio personal. Posteriormente, se puede observar que tanta información aporta cada característica con la correlación entre estas y la prioridad, la cual debe ir acorde a los pesos asignados en la función.
+El peso de cada característica indica que tanta información va a aportar al valor de prioridad (valores de peso grandes aportan mayor información y valores de peso pequeños aportan menor información), por lo que los pesos se eligen a criterio personal. Posteriormente, se puede observar que tanta información aporta cada característica con la correlación entre estas y la prioridad, la cual debe ir acorde a los pesos asignados en la función.
 
 Las variables de cada característica son las siguientes:
 ```
