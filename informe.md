@@ -25,7 +25,7 @@ Se importa la base de datos y se extrae las columnas con información relevante.
 
 El objetivo es calcular o predecir la prioridad de cada vulnerabilidad, sin embargo, en el ejemplo proporcionado, no se incluye este dato de prioridad. Por lo tanto, se asume que se debe utilizar un algoritmo de aprendizaje no supervisado. La cuestión con estos algoritmos es que se utilizan principalmente en problemas de clasificación, ya que los algoritmos de aprendizaje no supervisado para problemas de regresión todavía se encuentran en investigación de acuerdo al estado del arte.
 
-Se asume que el problema es de regresión porque se solicita la entrega del top 10 de vulnerabilidades con mayor prioridad. Para abordar un problema que requiere un modelo de aprendizaje supervisado de regresión, se opta por crear una función que calcule la prioridad en función de las características previamente procesadas. Esta función es la que el modelo deberá aprender. La función consistirá en una suma ponderada de pesos por cada característica, donde un valor más pequeño indicará una menor prioridad y un valor más grande indicará una mayor prioridad.
+Se asume que el problema es de regresión porque se solicita la entrega del top 10 de vulnerabilidades con mayor prioridad. Para abordar un problema que requiere un modelo de aprendizaje supervisado de regresión, se opta por crear una función que calcule la prioridad en función de las características previamente procesadas. Esta función es la que el modelo deberá aprender. La función consiste en una suma ponderada de pesos por cada característica, donde un valor más pequeño indicará una menor prioridad y un valor más grande indicará una mayor prioridad.
 
 ### Función de prioridad
 
@@ -43,28 +43,33 @@ Priority = 2S + 3T + \frac{D}{30} + AV + AC + PR + UI + SS + 3C + 3I + 3A + 2E +
 $$
 
 A continuación se presenta un ejemplo de los datos con la nueva columna 'Priority':
+
+
 ![Alt text](img/image-2.png)
 
 ### Correlación 
 
-Es una medida estadística que se utiliza para evaluar la relación entre dos conjuntos de datos. Mide la fuerza y la dirección de la asociación entre las variables, indicando si aumentan juntas (correlación positiva), disminuyen juntas (correlación negativa) o no tienen una relación lineal clara (correlación cercana a cero). La correlación es útil para comprender cómo las variables se comportan en conjunto y puede ser importante en análisis de datos y toma de decisiones.
-A continuación se presenta la crrelación de cada característica con la prioridad, demostrando que la correlación es mayor en las características a las que se les asignó un mayor peso.
-
-Severity                  0.834688\
-Type                      0.346378\
-Age in days               0.277838\
-Attack Vector             0.133471\
-Attack Complexity         0.037475\
-Privileges Required       0.240492\
-User Interaction          0.253662\
-Severity Scope           -0.267521\
-Confidentiality Impact    0.548601\
-Integrity Impact          0.637268\
-Availability Impact       0.620410\
-Exploitability            0.103032\
-Remediation Level         0.002902\
-CVSS_Score                0.874745\
+Es una medida estadística que se utiliza para evaluar la relación entre dos conjuntos de datos. Mide la fuerza y la dirección de la asociación entre las variables, indicando si aumentan juntas (correlación positiva), disminuyen juntas (correlación negativa) o no tienen una relación lineal clara (correlación cercana a cero). La correlación es útil para comprender cómo las variables se comportan en conjunto y puede ser importante en análisis de datos y toma de decisiones. A continuación se presenta la correlación de cada característica con la prioridad, demostrando que la correlación es mayor en las características a las que se les asignó un mayor peso.
+```
+Severity                  0.834688
+Type                      0.346378
+Age in days               0.277838
+Attack Vector             0.133471
+Attack Complexity         0.037475
+Privileges Required       0.240492
+User Interaction          0.253662
+Severity Scope           -0.267521
+Confidentiality Impact    0.548601
+Integrity Impact          0.637268
+Availability Impact       0.620410
+Exploitability            0.103032
+Remediation Level         0.002902
+CVSS_Score                0.874745 
 Priority                  1.000000
+```
+### División de datos
+
+Los datos se dividen en un 70% para entrenamiento y un 30% para prueba. Se define las primeras 14 columnas como entradas (todas las columnas excepto la prioridad) y la prioridad como salida esperada. También se mezclan los datos para evitar que se sobre entrenen los valores con edad en días mayores, ya que las vulnerabilidades se importan desde las fechas más antiguas a las más recientes.
 
 ### Elección de algoritmo
 
@@ -80,5 +85,66 @@ Como el problema a resolver es lineal, con un modelo de regresión lineal es pos
 
 Se decide utilizar las redes neuronales artificiales gracias a su capacidad de resolver diferentes tipos de problemas, incluyendo problemas lineales.
 
+## Entrenamiento y métricas
 
+### Métricas
 
+Las métricas a utilizar son las más usadas para problemas de regresión:
+
+**MSE (Error Cuadrático Medio):** Calcula el promedio de los errores al cuadrado entre las predicciones y los valores reales. Da más peso a los errores grandes y es sensible a valores atípicos.
+
+$$
+MSE = \frac{1}{n} \sum_{i=1}^{n} (x_i-y_i)^2
+$$
+
+**MAE (Error Absoluto Medio):** Calcula el promedio de los valores absolutos de los errores entre las predicciones y los valores reales. Es menos sensible a valores atípicos y proporciona una medida más directa del error promedio.
+
+$$
+MAE = \frac{1}{n} \sum_{i=1}^{n} \left | x_i-y_i \right |
+$$
+
+Cabe aclarar que como ambas métricas se utilizan para medir el error entre los datos predichos y los esperados, es mejor si la medida es cercana a cero y peor de lo contrario.
+
+### Elección de cantidad de neuronas
+
+Se entrena la red neuronal con los datos de entrenamiento variando el número de neuronas en la capa oculta y se mide el MSE de los datos de prueba y de entrenamiento con el fin de elegir la cantidad de neuronas que presenta menor error en ambos conjuntos de datos. Con base en la siguiente figura, se concluye que 15 neuronas presenta un error bajo tanto para el conjunto de entrenamiento como para el de pruebas.
+
+![Alt text](img/image-3.png)
+
+### Entrenamiento del modelo
+
+Se entrena el modelo con los datos de entrenamiento usando 15 neuronas en la capa oculta. Posteriormente se guarda el modelo en un archivo con nombre 'modelo_entrenado.pkl'.
+
+## Predicción de prioridad
+
+Se realiza la predicción de prioridad para los datos de prueba y se muestra gráficamente los resultados predichos y los esperados para un subconjunto de 40 elementos de los datos de prueba.
+
+![Alt text](img/image-4.png)
+
+A simple vista se observa que el modelo obtuvo un muy buen rendimiento, ya que los datos predichos superponen los datos esperados.
+
+A continuación se muestra el rendimiento del modelo (cercano a 1 mejor). También se enseña el MSE y MAE (cercano a 0 mejor) entre los datos predichos y los esperados.
+```
+Rendimiento del modelo:  0.9999974876940121
+MSE result:  0.000724808150244136
+MAE result:  0.02100205182575512
+```
+Dichos números confirman nuevamente que el modelo posee un excelente rendimiento, comportamiento esperado debido a que el problema resuelto es lineal.
+
+### Lista de vulnerabilidades
+
+Se obtiene el top 10 de vulnerabilidades con mayor prioridad predicha del conjunto de pruebas y se enseña a continuación algunas columnas de estas vulnerabilidades.
+
+![Alt text](img/image-5.png)
+
+### Adaptar el modelo
+
+Se genera una función para adaptar el modelo entrenado y que reciba datos en el formato del archivo de ejemplo. Esta función recibe como entrada el nombre del archivo y como salida muestra las vulnerabilidades ordenadas de mayor a menor prioridad. Es necesario que el modelo entrenado 'modelo_entrenado.pkl' se encuentre en el directorio desde donde se ejecuta la función.
+
+A continuación se presenta un ejemplo de su funcionamiento usando el archivo 'RetoTecnicoDataEjemplo.csv'.
+
+```
+filename = 'RetoTecnicoDataEjemplo.csv'
+predict(filename)
+```
+![Alt text](img/image-6.png)
