@@ -37,9 +37,10 @@ Severity=S   Type=T   Age in days=D   Attack Vector=AV   Attack Complexity=AC   
 ```
 
 Entonces la función  de prioridad se define de la siguiente forma:
+
 $$
 Priority = 2S + 3T + \frac{D}{30} + AV + AC + PR + UI + SS + 3C + 3I + 3A + 2E + R + 4VS
 $$
 
-A continuación se presenta un ejemplo de la nueva columna 'Priority':
+A continuación se presenta un ejemplo de los datos con la nueva columna 'Priority':
 ![Alt text](img/image-2.png)
