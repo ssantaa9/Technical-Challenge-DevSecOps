@@ -1,5 +1,5 @@
-#,Related Finding,Vulnerability Id,Where,Stream,Specific,Description,Status,Severity,Requirements,Impact,Threat,Recommendation,External BTS,Compromised Attributes,Tags,Business Critically,Type,Report Moment,,Age in days,CVSSv3.1 string vector,Attack Vector,Attack Complexity,Privileges Required,User Interaction,Severity Scope,Confidentiality Impact,Integrity Impact,Availability Impact,Exploitability,Remediation Level,Report Confidence,CWE ids,Commit Hash,Root Nickname,Group
-93147,221. Business information leak - Users,916112a4-8f9f-486f-b78e-c36a50c0e071,Ingerver/pipelines/soapui-tests.xml,-,141,"Se obtiene información de negocio, como:
+Related Finding,Vulnerability Id,Where,Stream,Specific,Description,Status,Severity,Requirements,Impact,Threat,Recommendation,External BTS,Compromised Attributes,Tags,Business Critically,Type,Report Moment,,Age in days,CVSSv3.1 string vector,Attack Vector,Attack Complexity,Privileges Required,User Interaction,Severity Scope,Confidentiality Impact,Integrity Impact,Availability Impact,Exploitability,Remediation Level,Report Confidence,CWE ids,Commit Hash,Root Nickname,Group
+221. Business information leak - Users,916112a4-8f9f-486f-b78e-c36a50c0e071,Ingerver/pipelines/soapui-tests.xml,-,141,"Se obtiene información de negocio, como:
 - Lista de usuarios válidos.",OPEN,2.3,REQ.0176. El sistema debe restringir el acceso a objetos del sistema que tengan contenido sensible. Sólo permitirá su acceso a usuarios autorizados.,Atacante interno con acceso al código,Un usuario no autorizado con acceso al acódigo puede identificar que hay información de negocio sin la protección suficiente.,"De acuerdo a la clasificación de la información encontrada, establecer los controles necesarios para que la información sea accesible sólo a las personas indicadas.",-,-,-,-,code,2019-12-19 22:09:08+00:00,,63,https://www.first.org/cvss/calculator/3.1#CVSS:3.1/AV:A/AC:L/PR:H/UI:N/S:U/C:L/I:N/A:N/E:F/RL:O/CR:H/IR:H/AR:H/MAV:A/MAC:L/MPR:H/MUI:N/MS:U/MC:L,Adjacent,Low,High,None,Unchanged,Low,None,None,Functional,Official Fix,Confirmed,"CWE-200
 CWE-284
 CWE-285
@@ -11,8 +11,8 @@ CWE-526
 CWE-548
 CWE-549
 CWE-639",-,-,al1
-146,105. Apache lucene query injection,894cc894-5aaf-447d-92fe-6c85317ae064,https://test.us-south.cos.my.net/traile/RequdFull,-,RequestBody,"Se genera dinámicamente una consulta para realizar a la base de datos de Cloudant. Dicha consulta contiene la información que el usuario ingresa, lo que permite modificarla para obtener más información de la permitida. En consecuencia, es posible obtener todos los registros en la base de datos.
-La documentación de Apache Lucene recomienda otro mecanismo y formato de consulta cuando no será un humano quien acceda a la información almacenada (https://lucene.apache.org/core/2_9_4/queryparsersyntax.html).",OPEN,8.2,REQ.0169. Debe usarse construcciones parametrizadas o procedimientos almacenados parametrizados para la creación dinámica de sentencias (ej: java.sql.PreparedStatement),#�NOMBRE?,"Atacante no autorizado, en Internet.","Realizar las consultas a la base de datos a través de los endpoints para JSON que Apache Lucene suministra.
+105. Apache lucene query injection,894cc894-5aaf-447d-92fe-6c85317ae064,https://test.us-south.cos.my.net/traile/RequdFull,-,RequestBody,"Se genera dinámicamente una consulta para realizar a la base de datos de Cloudant. Dicha consulta contiene la información que el usuario ingresa, lo que permite modificarla para obtener más información de la permitida. En consecuencia, es posible obtener todos los registros en la base de datos.
+La documentación de Apache Lucene recomienda otro mecanismo y formato de consulta cuando no será un humano quien acceda a la información almacenada (https://lucene.apache.org/core/2_9_4/queryparsersyntax.html).",OPEN,8.2,REQ.0169. Debe usarse construcciones parametrizadas o procedimientos almacenados parametrizados para la creación dinámica de sentencias (ej: java.sql.PreparedStatement),#�NOMBRE?,"Atacante no autorizado, en Internet.","Realizar las consultas a la base de datos a través de los endpoints para JSON que Apache Lucene suministra.
 Adicionalmente, sanitizar las entradas de los usuarios antes de hacerlas partícipes de las consultas.",-,-,-,-,app,2020-01-16 05:00:00+00:00,,0,https://www.first.org/cvss/calculator/3.1#CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:N/MAV:N/MAC:L/MPR:N/MUI:N/MS:U/MC:H/MI:L,Network,Low,None,None,Unchanged,High,Low,None,High,Unavailable,Confirmed,"CWE-112
 CWE-116
 CWE-1284
@@ -42,13 +42,13 @@ CWE-918
 CWE-94
 CWE-95
 CWE-98",-,-,sa2
-81,367. Sensitive information in source code - Git history,1eddcbed-3730-4049-b277-4a1cafb16d46,micros_st/infrastructure/driven-adapters/sig/BeanConf.java ,-,20,"Información sensible como nombres de usuario, credenciales para conectarse a bases de datos pueden ser encontradas en el historial de Git.
+367. Sensitive information in source code - Git history,1eddcbed-3730-4049-b277-4a1cafb16d46,micros_st/infrastructure/driven-adapters/sig/BeanConf.java,-,20,"Información sensible como nombres de usuario, credenciales para conectarse a bases de datos pueden ser encontradas en el historial de Git.
 ",OPEN,9.9,"145. Las llaves asimétricas privadas o simétricas del sistema deben estar protegidas y no deben ser expuestas.
 156. El código fuente no debe contener información sensible.
 266. La organización debe deshabilitar las funciones inseguras de un sistema (hardening de sistemas).
 ","Obtener información sensible para comprometer más recursos o servicios.
 ","Atacante autenticado desde Internet con acceso al código fuente.
-",#�NOMBRE?,-,-,-,-,code,2023-01-30 18:24:26.991086+00:00,,57,https://www.first.org/cvss/calculator/3.1#CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H,Network,Low,Low,None,Changed,High,High,High,High,Unavailable,Confirmed,"CWE-114
+",#�NOMBRE?,-,-,-,-,code,2023-01-30 18:24:26.991086+00:00,,57,https://www.first.org/cvss/calculator/3.1#CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H,Network,Low,Low,None,Changed,High,High,High,High,Unavailable,Confirmed,"CWE-114
 CWE-1392
 CWE-1393
 CWE-1394
@@ -67,12 +67,12 @@ CWE-749
 CWE-78
 CWE-798
 CWE-98",dcebbc2,ANUs_MR,abe4
-194,158. Unrestricted access between network segments - Azure AD,1abd8e7d-3fbe-44e1-bf40-968af52c698d,tst/Contciones.jmx,-,23,"Es posible acceder y utilizar los servicios Azure Active Directory Graph API desde cualquier punto de internet. Nota: la URL del servicio como las credenciales para utilizarlo se encontraron en el código de la aplicación.
+158. Unrestricted access between network segments - Azure AD,1abd8e7d-3fbe-44e1-bf40-968af52c698d,tst/Contciones.jmx,-,23,"Es posible acceder y utilizar los servicios Azure Active Directory Graph API desde cualquier punto de internet. Nota: la URL del servicio como las credenciales para utilizarlo se encontraron en el código de la aplicación.
 ",OPEN,7.7,"255. Los segmentos de usuarios y servidores con aplicaciones o contenido deben permitir acceso sólo a los puertos necesarios.
-",#�NOMBRE?," Atacante con acceso al código fuente desde Internet
+",#�NOMBRE?," Atacante con acceso al código fuente desde Internet
 ","Verificar la documentación de Azure con respecto a Conditional Access policy y configurar de manera segura el servicio estableciendo ubicaciones confiables para acceder al servicio.
 ",-,-,-,-,code,2023-02-02 02:12:49.677285+00:00,,20,https://www.first.org/cvss/calculator/3.1#CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N,Network,Low,Low,None,Changed,High,None,None,High,Unavailable,Confirmed,,396596a,ANUnd,sha4
-18771,393. Use of software with known vulnerabilities in development,b411e2ff-992d-4aa0-ac97-b795a16a40f4,package-lock.json (ws v6.2.1) [CVE-2021-32640],-,17075,"El sistema usa la versión de un software o dependencia con vulnerabilidades conocidas en un ambiente pre-productivo.
+393. Use of software with known vulnerabilities in development,b411e2ff-992d-4aa0-ac97-b795a16a40f4,package-lock.json (ws v6.2.1) [CVE-2021-32640],-,17075,"El sistema usa la versión de un software o dependencia con vulnerabilidades conocidas en un ambiente pre-productivo.
 ",OPEN,4.5,"Componentes con dependencias mínimas
 Verificar componentes de terceros","Explotar vulnerabilidades públicas de los componentes en los ambientes afectados.
 ",Atacante autenticado desde Internet.,"- Actualizar el software afectado a las versiones recomendadas por el fabricante.
@@ -80,7 +80,7 @@ Verificar componentes de terceros","Explotar vulnerabilidades públicas de los c
 ",-,-,-,-,code,2021-11-20 01:01:12+00:00,,28,https://www.first.org/cvss/calculator/3.1#CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L/E:U,Network,Low,None,None,Unchanged,None,None,Low,Unproven,Unavailable,Confirmed,"CWE-1035
 CWE-400
 CWE-937",e28de1f,AW1_MAP,spr6
-44493,325. Excessive privileges - Wildcards,619d5e97-97fe-4702-9fa0-5ee9607ae341,couchdb/cloudformation/template-couchdb-iam.yaml,-,31,"- Se otorgan privilegios con wildcard (*) en acciones críticas.
+325. Excessive privileges - Wildcards,619d5e97-97fe-4702-9fa0-5ee9607ae341,couchdb/cloudformation/template-couchdb-iam.yaml,-,31,"- Se otorgan privilegios con wildcard (*) en acciones críticas.
 - Muchos roles cuentan con privilegios innecesarios sobre IAM.
 - Algunas acciones de escritura permiten el uso de Wildcards(*).
 ",OPEN,3.8,"Definir usuarios con privilegios
