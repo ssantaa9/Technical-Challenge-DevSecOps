@@ -19,7 +19,7 @@ A continuación se observa un ejemplo del conjunto de datos generados.
 
 ## Preprocesamiento
 
-Se importa la base de datos y se extrae las columnas con información relevante. Aunque la columna 'Description' contenga información relevante, se descarta debido a la infinidad de posibilidades que posee, por ende no se le puede asignar un valor numérico. Se le asigna un valor numérico a las columnas de tipo texto. Los valores se asignan empezando desde el 1 quién representa menor severidad y aumentando mientras aumenta la severidad. Para temas de compatibilidad con la base de datos de ejemplo, se tiene en cuenta que los textos de las vulnerabilidades importadas están en mayúsculas y las del ejemplo La primera letra en mayúscula y las demás en minúsculas.
+Se importa la base de datos y se extrae las columnas con información relevante. Aunque la columna 'Description' contenga información relevante, se descarta debido a la infinidad de posibilidades que posee, por ende no se le puede asignar un valor numérico. Se le asigna un valor numérico a las columnas de tipo texto. Los valores se asignan empezando desde el 1 quién representa menor severidad y aumentando mientras aumenta la severidad. Para temas de compatibilidad con la base de datos de ejemplo, se tiene en cuenta que los textos de las vulnerabilidades importadas están en mayúsculas y las del ejemplo, la primera letra en mayúscula y las demás en minúsculas.
 
 ## Entrenamiento del modelo
 
@@ -29,14 +29,14 @@ Se asume que el problema es de regresión porque se solicita la entrega del top 
 
 ### Función de prioridad
 
-El peso de cada caracterísca indica que tanta información va aportar al valor de prioridad (valores de peso grandes aportan mayor información y valores de peso pequeños aportan menor información), por lo que los pesos se elegirán a criterio personal. Posteriormente se puede observar que tanta información aporta cada característica con la correlación entre estas y la prioridad, la cuál debe ir acorde a los pesos asignados en la función.
+El peso de cada característica indica que tanta información va a aportar al valor de prioridad (valores de peso grandes aportan mayor información y valores de peso pequeños aportan menor información), por lo que los pesos se elegirán a criterio personal. Posteriormente, se puede observar que tanta información aporta cada característica con la correlación entre estas y la prioridad, la cual debe ir acorde a los pesos asignados en la función.
 
 Las variables de cada característica son las siguientes:
 ```
 Severity=S   Type=T   Age in days=D   Attack Vector=AV   Attack Complexity=AC   Privileges   Required=PR   User Interaction=UI   Severity Scope=SS   Confidentiality Impact=C   Integrity   Impact=I   Availability Impact=A   Explotability=E   Remediation Level=R   CVSS_Score=VS
 ```
 
-Entonces la función  de prioridad se define de la siguiente forma:
+Entonces la función de prioridad se define de la siguiente forma:
 
 $$
 Priority = 2S + 3T + \frac{D}{30} + AV + AC + PR + UI + SS + 3C + 3I + 3A + 2E + R + 4VS
@@ -44,3 +44,41 @@ $$
 
 A continuación se presenta un ejemplo de los datos con la nueva columna 'Priority':
 ![Alt text](img/image-2.png)
+
+### Correlación 
+
+Es una medida estadística que se utiliza para evaluar la relación entre dos conjuntos de datos. Mide la fuerza y la dirección de la asociación entre las variables, indicando si aumentan juntas (correlación positiva), disminuyen juntas (correlación negativa) o no tienen una relación lineal clara (correlación cercana a cero). La correlación es útil para comprender cómo las variables se comportan en conjunto y puede ser importante en análisis de datos y toma de decisiones.
+A continuación se presenta la crrelación de cada característica con la prioridad, demostrando que la correlación es mayor en las características a las que se les asignó un mayor peso.
+
+Severity                  0.834688\
+Type                      0.346378\
+Age in days               0.277838\
+Attack Vector             0.133471\
+Attack Complexity         0.037475\
+Privileges Required       0.240492\
+User Interaction          0.253662\
+Severity Scope           -0.267521\
+Confidentiality Impact    0.548601\
+Integrity Impact          0.637268\
+Availability Impact       0.620410\
+Exploitability            0.103032\
+Remediation Level         0.002902\
+CVSS_Score                0.874745\
+Priority                  1.000000
+
+### Elección de algoritmo
+
+Como el problema a resolver es lineal, con un modelo de regresión lineal es posible solucionarlo, sin embargo, para efectos de demostrar mayores conocimientos en aprendizaje de máquina se elige otro algoritmo capaz de resolver problemas lineales. A continuación se mencionan algunos de los algoritmos más utilizados en problemas supervisados regresivos:
+
+**Árboles de decisión:** Modelos no lineales que pueden manejar relaciones más complejas entre las características y la variable objetivo.
+
+**Máquinas de vectores de soporte (SVM):** Útiles para problemas de regresión cuando se busca encontrar una función de decisión que maximice el margen entre diferentes clases de datos.
+
+**Regresión de vecinos más cercanos (K-NN):** Modelo simple que se basa en la similitud entre instancias de datos para predecir la variable objetivo.
+
+**Redes neuronales:** Modelos de aprendizaje de máquina inspirados en el cerebro humano que se utilizan para capturar patrones y relaciones en los datos, siendo efectivas en una variedad de aplicaciones, incluyendo clasificación, procesamiento de lenguaje natural y visión por computadora.
+
+Se decide utilizar las redes neuronales artificiales gracias a su capacidad de resolver diferentes tipos de problemas, incluyendo problemas lineales.
+
+
+
