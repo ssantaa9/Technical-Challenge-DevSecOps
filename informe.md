@@ -19,7 +19,7 @@ A continuación se observa un ejemplo del conjunto de datos generado.
 
 ## Preprocesamiento
 
-Se importa la base de datos y se extrae las columnas con información relevante. Aunque la columna 'Description' contenga información relevante, se descarta debido a la infinidad de posibilidades que posee, por ende no se le puede asignar un valor numérico. Se le asigna un valor numérico a las columnas de tipo texto. Los valores se asignan empezando desde el 1 quién representa menor severidad y aumentando mientras aumenta la severidad. Para temas de compatibilidad con la base de datos de ejemplo, se tiene en cuenta que los textos de las vulnerabilidades importadas están en mayúsculas y las del ejemplo, la primera letra en mayúscula y las demás en minúsculas.
+Se importa la base de datos y se extrae las columnas con información relevante. Aunque la columna 'Description' contenga información relevante, se descarta debido a la infinidad de posibilidades que posee, por ende, no se le puede asignar un valor numérico. Se le asigna un valor numérico a las columnas de tipo texto. Los valores se asignan empezando desde el 1 quién representa menor severidad y aumentando mientras aumenta la severidad. Para temas de compatibilidad con la base de datos de ejemplo, se tiene en cuenta que los textos de las vulnerabilidades importadas están en mayúsculas y las del ejemplo, la primera letra en mayúscula y las demás en minúsculas.
 
 ## Entrenamiento del modelo
 
@@ -29,7 +29,7 @@ Se asume que el problema es de regresión porque se solicita la entrega del top 
 
 ### Función de prioridad
 
-El peso de cada característica indica que tanta información va a aportar al valor de prioridad (valores de peso grandes aportan mayor información y valores de peso pequeños aportan menor información), por lo que los pesos se eligen a criterio personal. Posteriormente, se puede observar que tanta información aporta cada característica con la correlación entre estas y la prioridad, la cual debe ir acorde a los pesos asignados en la función.
+El peso de cada característica indica qué tanta información va a aportar al valor de prioridad (valores de peso grandes aportan mayor información y valores de peso pequeños aportan menor información), por lo que los pesos se eligen a criterio personal. Posteriormente, se puede observar que tanta información aporta cada característica con la correlación entre estas y la prioridad, la cual debe ir acorde a los pesos asignados en la función.
 
 Las variables de cada característica son las siguientes:
 ```
@@ -69,7 +69,7 @@ Priority                  1.000000
 ```
 ### División de datos
 
-Los datos se dividen en un 70% para entrenamiento y un 30% para prueba. Se define las primeras 14 columnas como entradas (todas las columnas excepto la prioridad) y la prioridad como salida esperada. También se mezclan los datos para evitar que se sobre entrenen los valores con edad en días mayores, ya que las vulnerabilidades se importan desde las fechas más antiguas a las más recientes.
+Los datos se dividen en un 70% para entrenamiento y un 30% para prueba. Se define las primeras 14 columnas como entradas (todas las columnas excepto la prioridad) y la prioridad como salida esperada. También se mezclan los datos para evitar que se sobreentrenen los valores con edad en días mayores, ya que las vulnerabilidades se importan desde las fechas más antiguas a las más recientes.
 
 ### Elección de algoritmo
 
@@ -107,17 +107,17 @@ Cabe aclarar que como ambas métricas se utilizan para medir el error entre los 
 
 ### Elección de cantidad de neuronas
 
-Se entrena la red neuronal con los datos de entrenamiento variando el número de neuronas en la capa oculta y se mide el MSE de los datos de prueba y de entrenamiento con el fin de elegir la cantidad de neuronas que presenta menor error en ambos conjuntos de datos. Con base en la siguiente figura, se concluye que 15 neuronas presenta un error bajo tanto para el conjunto de entrenamiento como para el de pruebas.
+Se entrena la red neuronal con los datos de entrenamiento variando el número de neuronas en la capa oculta y se mide el MSE de los datos de prueba y de entrenamiento con el fin de elegir la cantidad de neuronas que presenta menor error en ambos conjuntos de datos. Con base en la siguiente figura, se concluye que 15 neuronas presenta un error bajo, tanto para el conjunto de entrenamiento como para el de pruebas.
 
 ![Alt text](img/image-3.png)
 
 ### Entrenamiento del modelo
 
-Se entrena el modelo con los datos de entrenamiento usando 15 neuronas en la capa oculta. Posteriormente se guarda el modelo en un archivo con nombre 'modelo_entrenado.pkl'.
+Se entrena el modelo con los datos de entrenamiento utilizando 15 neuronas en la capa oculta. Posteriormente se guarda el modelo en un archivo con nombre 'modelo_entrenado.pkl'.
 
 ## Predicción de prioridad
 
-Se realiza la predicción de prioridad para los datos de prueba y se muestra gráficamente los resultados predichos y los esperados para un subconjunto de 40 elementos de los datos de prueba.
+Se realiza la predicción de prioridad para los datos de prueba y se muestran gráficamente los resultados predichos y los esperados para un subconjunto de 40 elementos de los datos de prueba.
 
 ![Alt text](img/image-4.png)
 
