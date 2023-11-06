@@ -19,17 +19,17 @@ A continuación se observa un ejemplo del conjunto de datos generado.
 
 ## Preprocesamiento
 
-Se importa la base de datos y se extrae las columnas con información relevante. Aunque la columna 'Description' contenga información relevante, se descarta debido a la infinidad de posibilidades que posee, por ende, no se le puede asignar un valor numérico. Se le asigna un valor numérico a las columnas de tipo texto. Los valores se asignan empezando desde el 1 quién representa menor severidad y aumentando mientras aumenta la severidad. Para temas de compatibilidad con la base de datos de ejemplo, se tiene en cuenta que los textos de las vulnerabilidades importadas están en mayúsculas y las del ejemplo, la primera letra en mayúscula y las demás en minúsculas.
+Se importa la base de datos y se extraen las columnas con información relevante. Aunque la columna 'Description' contenga información relevante, se descarta debido a la infinidad de posibilidades que posee, por ende, no se le puede asignar un valor numérico. Se le asigna un valor numérico a las columnas de tipo texto. Los valores se asignan empezando desde el 1 quién representa menor severidad y aumentan mientras se incrementa la severidad. Para temas de compatibilidad con la base de datos de ejemplo, se tiene en cuenta que los textos de las vulnerabilidades importadas están en mayúsculas y las del ejemplo, la primera letra en mayúscula y las demás en minúsculas.
 
-## Entrenamiento del modelo
+## Selección del modelo
 
-El objetivo es calcular o predecir la prioridad de cada vulnerabilidad, sin embargo, en el ejemplo proporcionado, no se incluye este dato de prioridad. Por lo tanto, se asume que se debe utilizar un algoritmo de aprendizaje no supervisado. La cuestión con estos algoritmos es que se utilizan principalmente en problemas de clasificación, ya que los algoritmos de aprendizaje no supervisado para problemas de regresión todavía se encuentran en investigación de acuerdo al estado del arte.
+El objetivo es calcular o predecir la prioridad de cada vulnerabilidad, sin embargo, en el ejemplo proporcionado no se incluye este dato de prioridad. Por lo tanto, se asume que se debe utilizar un algoritmo de aprendizaje no supervisado. La cuestión con estos algoritmos es que se utilizan principalmente en problemas de clasificación, ya que los algoritmos de aprendizaje no supervisado para problemas de regresión todavía se encuentran en investigación de acuerdo al estado del arte.
 
-Se asume que el problema es de regresión porque se solicita la entrega del top 10 de vulnerabilidades con mayor prioridad. Para abordar un problema que requiere un modelo de aprendizaje supervisado de regresión, se opta por crear una función que calcule la prioridad en función de las características previamente procesadas. Esta función es la que el modelo debe aprender. La función consiste en una suma ponderada de pesos por cada característica, donde un valor más pequeño indica una menor prioridad y un valor más grande indica una mayor prioridad.
+Se asume que el problema es de regresión porque se solicita la entrega del top 10 de vulnerabilidades con mayor prioridad. Para abordar un problema que requiere un modelo de aprendizaje supervisado de regresión, se opta por crear una función que calcule la prioridad en función de las características previamente procesadas. Esta función es la que el modelo debe aprender y consiste en una suma ponderada de pesos por cada característica, donde un valor de peso más pequeño indica una menor prioridad y un valor más grande indica una mayor prioridad.
 
 ### Función de prioridad
 
-El peso de cada característica indica qué tanta información va a aportar al valor de prioridad (valores de peso grandes aportan mayor información y valores de peso pequeños aportan menor información), por lo que los pesos se eligen a criterio personal. Posteriormente, se puede observar que tanta información aporta cada característica con la correlación entre estas y la prioridad, la cual debe ir acorde a los pesos asignados en la función.
+El peso de cada característica indica qué tanta información va a aportar al valor de prioridad (valores de peso grandes aportan mayor información y valores de peso pequeños aportan menor información), por lo que los pesos se eligen a criterio personal. Posteriormente, se puede observar qué tanta información aporta cada característica con la correlación entre estas y la prioridad, la cual debe ir acorde a los pesos asignados en la función.
 
 Las variables de cada característica son las siguientes:
 ```
@@ -69,7 +69,7 @@ Priority                  1.000000
 ```
 ### División de datos
 
-Los datos se dividen en un 70% para entrenamiento y un 30% para prueba. Se define las primeras 14 columnas como entradas (todas las columnas excepto la prioridad) y la prioridad como salida esperada. También se mezclan los datos para evitar que se sobreentrenen los valores con edad en días mayores, ya que las vulnerabilidades se importan desde las fechas más antiguas a las más recientes.
+Los datos se dividen en un 70% para entrenamiento y un 30% para prueba. Se definen todas las columnas como entradas (excepto la prioridad) y la prioridad como salida esperada. También se mezclan los datos para evitar que se sobreentrenen los valores con 'edad en días' mayores, ya que las vulnerabilidades se importan desde las fechas más antiguas a las más recientes.
 
 ### Elección de algoritmo
 
